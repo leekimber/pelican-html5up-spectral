@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Publications{% endblock %}
+{% block content %}
+
+<script type="text/javascript">
+    function disp(s) {
+        var win;
+        var doc;
+        win = window.open("", "WINDOWID");
+        doc = win.document;
+        doc.open("text/plain");
+        doc.write("<pre>" + s + "</pre>");
+        doc.close();
+    }
+</script>
+<article id="main">
+
+  <header class="special container">
+    <span class="icon fa-pencil"></span>
+    <h2>Publications</h2>
+  </header>
+  <section class="wrapper style5">
+                <div class="inner">
+    <ul>
+    {% for key, year, text, bibtex, pdf, slides, poster in publications %}
+    <li id="{{ key }}">{{ text }}
+    [&nbsp;<a href="javascript:disp('{{ bibtex|replace('\n', '\\n')|escape|forceescape }}');">Bibtex</a>&nbsp;]
+    {% for label, target in [('PDF', pdf), ('Slides', slides), ('Poster', poster)] %}
+    {{ "[&nbsp;<a href=\"%s\">%s</a>&nbsp;]" % (target, label) if target }}
+    {% endfor %}
+    </li>
+    {% endfor %}
+    </ul>
+  </section>
+</article>
+{% endblock %}
