@@ -1,0 +1,18 @@
+  {% if STYLE3_CATEGORY %}
+				<!-- Three -->
+					<section id="three" class="wrapper style3 special">
+						<div class="inner">
+							<header class="major">
+								<h2>{{ STYLE3_TITLE }}</h2>
+							</header>
+							<ul class="features">
+					      {% for article in (articles_page.object_list if articles_page else articles) if article.category.name == STYLE3_CATEGORY %}
+								<li class="icon fa-{{ article.icon }}">
+									<h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+									{{ article.summary}}
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</section>
+{% endif %}

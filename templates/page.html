@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title|striptags }}{% endblock title %}
+
+{% block sitebanner %}
+  {% if page.image %}
+		<style>
+      #main > header {
+			        background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ page.image }});
+			        background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ page.image }});
+			        background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ page.image }});
+			        background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ page.image }});
+      }
+		</style>
+    {% endif %}
+{% endblock sitebanner %}
+
+{% block content %}
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>{{ page.title }}</h2>
+							<p>{{ page.summary }}</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								{{ page.content }}
+							</div>
+						</section>
+					</article>
+
+{% endblock content %}

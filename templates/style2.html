@@ -1,0 +1,13 @@
+				<!-- Two -->
+					<section id="two" class="wrapper alt style2">
+
+						{% for page in pages %}
+						<section class="spotlight">
+							<div class="image"><a href="{{ SITEURL }}/{{ page.url }}"><img src="{{ page.image }}" alt="{{ page.title }}" /></a></div><div class="content">
+								<h2>><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></h2>
+								{{ page.summary }}
+							</div>
+						</section>
+						{% endfor %}
+
+					</section>

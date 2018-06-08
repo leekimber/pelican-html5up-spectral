@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Archives | {{ super() }}{% endblock title %}
+
+{% block content %}
+<!-- Main -->
+<article id="main">
+
+  <header class="special container">
+    <span class="icon fa-pencil"></span>
+    <h2>Archives</h2>
+    <!-- add page sub title here -->
+    <p>Archives Template</p>
+  </header>
+
+    <!-- One -->
+    <section class="wrapper style5 special">
+                <div class="inner">
+                {% for article in articles %}
+                    <ul class="features">
+                        <!-- <a href="#" class="image feature"><img src="images/pic03.jpg" alt="" /></a> -->
+                        <li><a href="{{ SITEURL }}/{{ article.url }}"><h3>{{ article.title }}</h3></a>
+    					              <span class="label label-default">Date</span><span class="published"><i class="fa fa-calendar"></i><time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time></span><br/ >
+        		                <span class="label label-default">Category</span> <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+	                        <p>{{ article.summary }}</p> </li>
+
+                    </ul>
+                {% endfor %}
+                </div>
+
+    </section>
+</article>
+
+{% endblock content %}
