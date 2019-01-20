@@ -1,0 +1,14 @@
+{% if STYLE1_CATEGORY %}
+<div class="inner">
+  <ul class="icons major">
+    {% for article in (articles_page.object_list if articles_page else articles) if article.category.name == STYLE1_CATEGORY %}
+    <li><a href="{{ SITEURL }}/{{ article.url }}" rel='bookmark' title="{{ article.title }}">
+	    <span class="icon fa-{{ article.icon}} major style1">
+	      <span class="label"{{ article.title }}</span>
+  	    </span>
+        </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

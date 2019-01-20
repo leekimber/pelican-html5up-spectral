@@ -1,0 +1,40 @@
+{% if article.category.name == STYLE3_CATEGORY and articles and articles_paginator.num_pages > 1 %}
+
+<div class="row paginator">
+
+    <div class="4u pagination-left">
+        <section>
+            <header>
+            {% if articles.has_previous() %}
+                {% if articles.previous_page_number() == 1 %}
+                    <a href="{{ SITEURL }}/{{ page_name }}.html">
+                {% else %}
+                    <a href="{{ SITEURL }}/{{ page_name }}{{ articles.previous_page_number() }}.html">
+                {% endif %}
+                &larr;&nbsp;Newer posts</a>
+            {% else %}
+                &nbsp;
+            {% endif %}
+            </header>
+        </section>
+    </div>
+
+    <div class="4u pagination-middle">
+        <section>
+            <header>Page {{ articles.number }} / {{ articles_paginator.num_pages }}</header>
+        </section>
+    </div>
+
+    <div class="4u pagination-right">
+        <section>
+            <header>
+            {% if articles.has_next() %}
+                <a href="{{ SITEURL }}/{{ page_name }}{{ articles.next_page_number() }}.html">Older posts&nbsp;&rarr;</a>
+            {% endif %}
+            </header>
+        </section>
+    </div>
+
+</div>
+
+{% endif %}

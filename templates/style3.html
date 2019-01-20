@@ -6,13 +6,17 @@
 								<h2>{{ STYLE3_TITLE }}</h2>
 							</header>
 							<ul class="features">
-					      {% for article in (articles_page.object_list if articles_page else articles) if article.category.name == STYLE3_CATEGORY %}
-								<li class="icon fa-{{ article.icon }}">
+							  {% set recent = articles if not all_articles else all_articles %}
+							  {% for article in recent if article.category.name == STYLE3_CATEGORY %}
+							      {% if loop.index <= 6 %}
+							          <li class="icon fa-{{ article.icon }}">
 									<h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
 									{{ article.summary}}
-								</li>
-								{% endfor %}
+								  </li>
+							      {% endif  %}
+							   {% endfor %}
 							</ul>
 						</div>
 					</section>
+
 {% endif %}

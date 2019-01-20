@@ -6,10 +6,9 @@
 -->
 <html>
 	<head>
-
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<meta charset="utf-8" />
 		<link rel="stylesheet" href="/css/main.css" />
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -48,15 +47,15 @@
 								<li class="special">
 									<a href="#menu" class="menuToggle"><span>Menu</span></a>
 									<div id="menu">
-										<ul>
-	                		{% if DISPLAY_PAGES_ON_MENU %}
-                  		{% for page in pages %}
-											<li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
-											{% endfor %}
-											{% endif %}
+									  <ul>
+					{% if DISPLAY_PAGES_ON_MENU %}
+                  			{% for page in pages %}
+					    <li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
+					{% endfor %}
+					{% endif %}
                 			{% for title, link in MENUITEMS %}
-	                    <li><a href="{{ link }}">{{ title }}</a></li>
-											{% endfor %}
+					<li><a href="{{ link }}">{{ title }}</a></li>
+					{% endfor %}
 										</ul>
 									</div>
 								</li>
