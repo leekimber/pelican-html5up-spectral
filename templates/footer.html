@@ -1,13 +1,29 @@
 				<!-- Footer -->
 					<footer id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					  <ul class="icons">
+					    {% for s in SOCIAL %}
+					    {% if s[2] %}
+					    {% set name_sanitized = s[2]|lower|replace('+','-plus')|replace(' ','-') %}
+					    {% else %}
+					    {% set name_sanitized = s[0]|lower|replace('+','-plus')|replace(' ','-') %}
+					    {% endif %}
+					    {% if name_sanitized in ['flickr', 'slideshare', 'instagram', 'spotify', 'stack-overflow', 'weibo', 'line-chart', 'home', 'user', 'users', 'envelope', 'envelope-o', 'stack-exchange', 'hacker-news', 'gitlab', 'vk'] %}
+					    {% set iconattributes = '"fa fa-' ~ name_sanitized ~ ' fa-lg"' %}
+					    {% else %}
+					    {% set iconattributes = '"fa fa-' ~ name_sanitized ~ '-square fa-lg"' %}
+					    {% endif %}
+					    <li><a href="{{ s[1] }}" class=" icon {{ iconattributes }}"><span class="label">{{ s[0] }}</a></li>
+					    {% endfor %}					    
+							<!-- <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li> -->
+							<!-- <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li> -->
+							<!-- <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li> -->
+							<!-- <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li> -->
+							<!-- <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li> -->
 						</ul>
 						<ul class="copyright">
-							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						  <li>&copy; {{ AUTHOR }}</li>
+						  <li><a href="http://docs.getpelican.com/" target="_blank">Pelican</a></li>
+						  <li><a href="https://github.com/abeelen/pelican-html5up-spectral" target="_blank">pelican-html5up-spectral</a></li>
+						  <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
 					</footer>

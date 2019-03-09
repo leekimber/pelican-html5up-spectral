@@ -79,6 +79,8 @@ which correspond to the third gallery container in the template. The third conta
 └── programming				//category
     └── article1.md
 ```
+### Social links
+You can add social links following at the bottom of the page, following the same convention that the pelican-bootstrap3 theme (https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3#sidebar-options)
 
 #### To Do
 [ ] Portfolio Category<br>
