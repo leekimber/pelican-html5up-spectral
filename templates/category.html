@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category|striptags }} | {{ super() }}{% endblock title %}
+
+{% block content %}
+
+<!-- Main -->
+<article id="main">
+  <header>
+    <span class="major icon fa-mobile"></span>
+    <h2>{{ category }}</h2>
+  </header>
+  
+  <footer class="post-info">
+  </footer>
+  
+  <section class="wrapper style5">
+    <div class="inner">
+      {% for article in articles %}
+      <header>
+        <h4><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a> <span class="align-left"><i class="fa fa-calendar"></i><time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time></span></h4>
+	
+	<p>{{ article.summary }}</p>
+      
+      </header>
+      {% endfor %}
+    </div>
+  </section>
+  
+</article>
+
+{% endblock content %}
