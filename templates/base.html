@@ -150,5 +150,12 @@
 			<!--[if lte IE 8]><script src="{{ SITEURL }}/assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="{{ SITEURL }}/js/main.js"></script>
 
+			{% if CUSTOM_JS %}
+    			<script src="{{ SITEURL }}/{{ CUSTOM_JS }}"></script>
+			{% endif %}
+
+			{% include 'includes/ga.html' %}
+			{% include 'includes/piwik.html' %}
+
 	</body>
 </html>
