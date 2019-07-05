@@ -20,10 +20,10 @@
   	{% if SITEBANNER %}
 		<style>
       #main > header {
-			        background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ SITEBANNER }});
-			        background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ SITEBANNER }});
-			        background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ SITEBANNER }});
-			        background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ SITEBANNER }});
+			        background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ SITEURL }}/{{ SITEBANNER }});
+			        background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ SITEURL }}/{{ SITEBANNER }});
+			        background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ SITEURL }}/{{ SITEBANNER }});
+			        background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ SITEURL }}/{{ SITEBANNER }});
       }
 		</style>
     {% endif %}
@@ -65,20 +65,30 @@
 					<header id="header" {% if page_name == 'index' %}class="alt"{% endif %}>
 						<h1><a href="{{ SITEURL }}">{{ SITENAME }}</a></h1>
 						<nav id="nav">
+						  {% if not PAGES_SORT_ATTRIBUTE -%}
+						  {% set PAGES_SORT_ATTRIBUTE = 'title' %}
+						  {%- endif %}  
 							<ul>
 								<li class="special">
 									<a href="#menu" class="menuToggle"><span>Menu</span></a>
 									<div id="menu">
 									  <ul>
-					{% if DISPLAY_PAGES_ON_MENU %}
-                  			{% for page in pages %}
-					    <li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
-					{% endfor %}
-					{% endif %}
                 			{% for title, link in MENUITEMS %}
 					<li><a href="{{ link }}">{{ title }}</a></li>
 					{% endfor %}
-										</ul>
+					{% if DISPLAY_PAGES_ON_MENU %}
+                  			    {% for page in pages | sort(attribute=PAGES_SORT_ATTRIBUTE) %}
+					        {% if page.url %}
+					            <li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.menulabel|default(page.title) }}</a></li>
+						{% endif %}
+					    {% endfor %}
+					{% endif %}
+				        {% if DISPLAY_CATEGORIES_ON_MENU %}
+					    {% for cat, null in categories %}
+					        <li><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a></li>
+					    {% endfor %}
+					{% endif %}
+									  </ul>
 									</div>
 								</li>
 							</ul>
