@@ -1,10 +1,14 @@
 <!DOCTYPE HTML>
+{% if USE_OPEN_GRAPH is not defined %}
+    {% set USE_OPEN_GRAPH = True %}
+{% endif %}
 <!--
 	Spectral by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}"{% if USE_OPEN_GRAPH %} prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml"{% endif %}>
+
 	<head>
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<meta charset="utf-8" />
@@ -12,9 +16,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!--[if lte IE 9]><link rel="stylesheet" href="{{ SITEURL }}/assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="{{ SITEURL }}/assets/css/ie8.css" /><![endif]-->
-    {% block head %}
     <title>{% block title %}{{ SITENAME }} {{ TAGLINE }}{% endblock title %}</title>
-    {% endblock head %}
+
+    {# Favicons are a touchy subject. For reasoning for the following code, see: http://stackoverflow.com/a/23851464/872397 #}
+    {% if FAVICON %}
+    <link href="{{ SITEURL }}/{{ FAVICON }}" rel="icon">
+    {% endif %}
+    {% if FAVICON_IE %}
+    <!--[if IE]><link rel="shortcut icon" href="{{ SITEURL }}/{{ FAVICON_IE }}"><![endif]-->
+    {% endif %}
+    {% if TOUCHICON %}
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/{{ TOUCHICON }}">
+    {% endif %}
+
+    {% block canonical_rel %}{% endblock %}
+
+    {% block meta %}
+        <meta name="author" content="{{ AUTHOR }}" />
+    {% endblock %}
+
+    {# Open Graph tags #}
+    {% if USE_OPEN_GRAPH %}
+    {% block opengraph %}
+    <!-- Open Graph tags -->
+        {% if OPEN_GRAPH_FB_APP_ID %}
+            <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}"/>
+        {% endif %}
+        <meta property="og:site_name" content="{{ SITENAME }}" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="{{ SITENAME }}"/>
+        <meta property="og:url" content="{{ SITEURL }}"/>
+        <meta property="og:description" content="{{ SITENAME }}"/>
+        {% if OPEN_GRAPH_IMAGE %}
+            <meta property="og:image"
+                  content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}"/>
+        {% endif %}
+    {% endblock %}
+    {% endif %}
 
 		{% block sitebanner %}
   	{% if SITEBANNER %}
@@ -29,30 +67,30 @@
     {% endif %}
 		{% endblock %}
 
-        {% if FEED_ALL_ATOM %}
-        <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
-        {% endif %}
-        {% if FEED_ALL_RSS %}
-        <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_RSS_URL %}{{ FEED_ALL_RSS_URL }}{% else %}{{ FEED_ALL_RSS }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Full RSS Feed" />
-        {% endif %}
-        {% if FEED_ATOM %}
-        <link href="{{ FEED_DOMAIN }}/{%if FEED_ATOM_URL %}{{ FEED_ATOM_URL }}{% else %}{{ FEED_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
-        {% endif %}
-        {% if FEED_RSS %}
-        <link href="{{ FEED_DOMAIN }}/{% if FEED_RSS_URL %}{{ FEED_RSS_URL }}{% else %}{{ FEED_RSS }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
-        {% endif %}
-        {% if CATEGORY_FEED_ATOM and category %}
-        <link href="{{ FEED_DOMAIN }}/{% if CATEGORY_FEED_ATOM_URL %}{{ CATEGORY_FEED_ATOM_URL|format(category.slug) }}{% else %}{{ CATEGORY_FEED_ATOM|format(category.slug) }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Categories Atom Feed" />
-        {% endif %}
-        {% if CATEGORY_FEED_RSS and category %}
-        <link href="{{ FEED_DOMAIN }}/{% if CATEGORY_FEED_RSS_URL %}{{ CATEGORY_FEED_RSS_URL|format(category.slug) }}{% else %}{{ CATEGORY_FEED_RSS|format(category.slug) }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Categories RSS Feed" />
-        {% endif %}
-        {% if TAG_FEED_ATOM and tag %}
-        <link href="{{ FEED_DOMAIN }}/{% if TAG_FEED_ATOM_URL %}{{ TAG_FEED_ATOM_URL|format(tag.slug) }}{% else %}{{ TAG_FEED_ATOM|format(tag.slug) }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Tags Atom Feed" />
-        {% endif %}
-        {% if TAG_FEED_RSS and tag %}
-        <link href="{{ FEED_DOMAIN }}/{% if TAG_FEED_RSS_URL %}{{ TAG_FEED_RSS_URL|format(tag.slug) }}{% else %}{{ TAG_FEED_RSS|format(tag.slug) }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
-{% endif %}
+  	{% if FEED_ALL_ATOM %}
+      <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
+    {% endif %}
+    {% if FEED_ALL_RSS %}
+      <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_RSS_URL %}{{ FEED_ALL_RSS_URL }}{% else %}{{ FEED_ALL_RSS }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Full RSS Feed" />
+    {% endif %}
+    {% if FEED_ATOM %}
+      <link href="{{ FEED_DOMAIN }}/{%if FEED_ATOM_URL %}{{ FEED_ATOM_URL }}{% else %}{{ FEED_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
+    {% endif %}
+    {% if FEED_RSS %}
+      <link href="{{ FEED_DOMAIN }}/{% if FEED_RSS_URL %}{{ FEED_RSS_URL }}{% else %}{{ FEED_RSS }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
+    {% endif %}
+    {% if CATEGORY_FEED_ATOM and category %}
+      <link href="{{ FEED_DOMAIN }}/{% if CATEGORY_FEED_ATOM_URL %}{{ CATEGORY_FEED_ATOM_URL|format(category.slug) }}{% else %}{{ CATEGORY_FEED_ATOM|format(category.slug) }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Categories Atom Feed" />
+    {% endif %}
+    {% if CATEGORY_FEED_RSS and category %}
+      <link href="{{ FEED_DOMAIN }}/{% if CATEGORY_FEED_RSS_URL %}{{ CATEGORY_FEED_RSS_URL|format(category.slug) }}{% else %}{{ CATEGORY_FEED_RSS|format(category.slug) }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Categories RSS Feed" />
+    {% endif %}
+    {% if TAG_FEED_ATOM and tag %}
+      <link href="{{ FEED_DOMAIN }}/{% if TAG_FEED_ATOM_URL %}{{ TAG_FEED_ATOM_URL|format(tag.slug) }}{% else %}{{ TAG_FEED_ATOM|format(tag.slug) }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Tags Atom Feed" />
+    {% endif %}
+    {% if TAG_FEED_RSS and tag %}
+      <link href="{{ FEED_DOMAIN }}/{% if TAG_FEED_RSS_URL %}{{ TAG_FEED_RSS_URL|format(tag.slug) }}{% else %}{{ TAG_FEED_RSS|format(tag.slug) }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
+		{% endif %}
 
 
 	</head>
@@ -67,7 +105,7 @@
 						<nav id="nav">
 						  {% if not PAGES_SORT_ATTRIBUTE -%}
 						  {% set PAGES_SORT_ATTRIBUTE = 'title' %}
-						  {%- endif %}  
+						  {%- endif %}
 							<ul>
 								<li class="special">
 									<a href="#menu" class="menuToggle"><span>Menu</span></a>

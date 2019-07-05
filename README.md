@@ -82,6 +82,10 @@ which correspond to the third gallery container in the template. The third conta
 ### Social links
 You can add social links following at the bottom of the page, following the same convention that the pelican-bootstrap3 theme (https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3#sidebar-options)
 
+### Facebook Open Graph
+
+In order to make the Facebook like button and other social sharing options work better, the template contains Open Graph metatags like <meta property="og:type" content="article"/>. You can disable them by setting USE_OPEN_GRAPH to False. You can use OPEN_GRAPH_FB_APP_ID to provide a Facebook app id. You can also provide a default image that will be passed as an Open Graph tag by setting OPEN_GRAPH_IMAGE to a relative file path, which will be prefixed by your site's base url. Optionally, you can override this default image on a per article and per page basis, by setting the og_image variable in an article or page.
+
 #### To Do
 [ ] Portfolio Category<br>
 [ ] Add `Featured` and `FeaturedImage` attribute to content and templates<br>
