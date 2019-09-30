@@ -2044,7 +2044,7 @@
 					@media screen and (max-width: 736px) {
 
 						ul.icons.major li {
-							padding: 0 1em !important;
+							padding: 1em 1em !important;
 						}
 
 					}
