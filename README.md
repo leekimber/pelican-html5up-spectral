@@ -54,6 +54,16 @@ You can add social links following at the bottom of the page, following the same
 
 In order to make the Facebook like button and other social sharing options work better, the template contains Open Graph metatags like <meta property="og:type" content="article"/>. You can disable them by setting USE_OPEN_GRAPH to False. You can use OPEN_GRAPH_FB_APP_ID to provide a Facebook app id. You can also provide a default image that will be passed as an Open Graph tag by setting OPEN_GRAPH_IMAGE to a relative file path, which will be prefixed by your site's base url. Optionally, you can override this default image on a per article and per page basis, by setting the og_image variable in an article or page.
 
+
+### Site Brand
+
+You can provide a logo for your site using `SITELOGO`. For example: `SITELOGO =
+'images/my_site_logo.png'`. You can then define the size of the logo using
+`SITELOGO_SIZE`. The `width` of the `<img>` element will be set accordingly.
+
+By default the `SITENAME` will be shown as well. It's also possible to hide the site name using the `HIDE_SITENAME` flag.
+
+
 #### Caveats
 **1. skel.js**<br>
 html5up uses [skel.js](https://github.com/n33/skel) to handle responsiveness of their templates. For skel to work right css has to be available at the `{{ SITEURL }}/css/` path. I did not want to alter any of the files in the template (**not even the init.js**). So to fix this for development my [fab](http://www.fabfile.org/) script copies over the css and js from the static folder and places them into their corresponding locations in my output directory.
