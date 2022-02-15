@@ -114,6 +114,12 @@ which correspond to the third gallery container in the template. The third conta
     └── article1.md
 ```
 
+####
+2022-02-15:
+Modified base.html to get rid of "CRITICAL: TypeError: not all arguments converted during string formatting"
+errors, per [this StackOverflow question](https://stackoverflow.com/questions/54047848/pelican-not-all-arguments-converted-during-string-formatting)
+
+
 #### To Do
 [ ] Portfolio Category<br>
 [ ] Add `Featured` and `FeaturedImage` attribute to content and templates<br>
